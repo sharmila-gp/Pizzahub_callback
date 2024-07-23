@@ -1,0 +1,85 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Callback Function</title>
+        <style>
+            #order,#processing{
+                font-weight: bold;
+                font-size: 20px;
+                color:rgb(118, 40, 40);
+                              
+            }
+        </style>
+    </head>
+    <body>
+        <p id="order"></p>
+        <p id="processing"></p>
+
+        <script>
+                let order = document.getElementById("order");
+                let processing=document.getElementById("processing");
+                
+                let dish,flavour='';
+            function getData(){
+                dish=prompt("Only pizza is available in this restaurant, If you need, enter 'yes' in the prompt.");
+                
+                if(dish=="yes"){
+                flavour=prompt("Enter the flavour need for the pizza.");
+                                   
+                    order.innerHTML = `your order is pizza with ${flavour}.`;
+                    placeOrder(processing,flavour,prepare);
+                    }
+                else{
+                    order.innerHTML=`Thank you! visit again.`;
+                    }
+                }
+                getData();
+            
+            function placeOrder(para,fla,prepare) {
+                setTimeout(()=>{
+                 para.innerHTML=`Your order for pizza with ${fla} has been noted and the preparing process will starts soon.`;
+                 console.log("order placed");
+                 para.style["color"] = "#c72fc7";
+                 para.style["background-color"] = "yellow";
+                },1000);
+                prepare(para,fla,orderReady);
+            } 
+
+            function prepare(para,fla,ready){
+                setTimeout(()=>{
+                para.innerHTML=`Your order for pizza with ${fla} has been started to prepare it will take while to prepare.`;  
+                console.log("started to prepare");
+                para.style["color"] = "#285c76";
+                 para.style["background-color"] = "#c7c72f";
+                },3000);
+               
+                ready(para,fla,orderDeliver);
+            }
+
+            function orderReady(para,fla,deliver){
+                setTimeout(()=>{
+                    para.innerHTML=`Your order for pizza with ${fla} has been prepared and given to the our delivery Execuitive. It will take 20mins to reach you.`;  
+                    console.log("order has been ready for delivery");
+                    para.style["color"] = "#b2ced8";
+                    para.style["background-color"] = "#2c13ba";
+                },6000);
+                
+                deliver(para,fla);
+             }     
+
+                function orderDeliver(para,fla){   
+                setTimeout(()=>{
+                    para.innerHTML=`Your order for pizza with ${fla} has been delivered. Have a great day.`;
+                    console.log("order delivered"); 
+                    para.style["color"] = "green";
+                    para.style["background-color"] = "yellow"; 
+                },8000);
+            }
+
+                 
+        </script>
+    </body>
+    </html>
